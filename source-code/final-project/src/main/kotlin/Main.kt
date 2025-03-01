@@ -1,5 +1,13 @@
 package dev.sunnat629
 
-fun main() {
-    println("Hello World!")
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
+fun main() = runBlocking {
+    launch {
+        delay(1000L)
+        println("World!")
+    }
+    println("Hello,")
 }

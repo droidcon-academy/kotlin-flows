@@ -1,7 +1,6 @@
 package dev.sunnat629.section1
 
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 suspend fun downloadFile(): String {
     delay(3000L) // Simulate file download
