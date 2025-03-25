@@ -1,7 +1,11 @@
 package dev.sunnat629.section5
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
     val numbersFlow = flow {
@@ -15,8 +19,15 @@ fun main() = runBlocking {
         .onStart {
             println("Flow started")
         }
-        .onCompletion {
-            println("Flow completed")
+        .onEach { value ->
+            println("Emitted: $value") // Use onEach to log every emission
+        }
+        .onCompletion { cause ->
+            if (cause != null) {
+                println("Flow completed with error: ${cause.message}")
+            } else {
+                println("Flow completed")
+            }
         }
         .collect { value ->
             println("Received: $value")
