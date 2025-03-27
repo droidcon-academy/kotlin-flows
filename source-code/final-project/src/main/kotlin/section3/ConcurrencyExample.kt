@@ -1,17 +1,19 @@
 package dev.sunnat629.section3
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+
+fun numberFlow(): Flow<Int> = flow {
+    for (i in 1..3) {
+        println("Emitting $i on ${Thread.currentThread().name}")
+        delay(300)
+        emit(i)
+    }
+}.flowOn(Dispatchers.Default) // Switch emission to background thread
 
 fun main() = runBlocking {
-    // Launching coroutine in a non-main thread using Dispatchers.IO
-    launch(Dispatchers.IO) {
-        runBackgroundTask()
-    }
-    delay(2000)
-}
-
-suspend fun runBackgroundTask() {
-    println("Running on thread: ${Thread.currentThread().name}")
-    delay(1000) // Simulating a background task
-    println("Task completed on thread: ${Thread.currentThread().name}")
+    numberFlow()
+        .collect { value ->
+            println("Collected $value on ${Thread.currentThread().name}")
+        }
 }
