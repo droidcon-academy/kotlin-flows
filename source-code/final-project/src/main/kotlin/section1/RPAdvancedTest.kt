@@ -1,17 +1,21 @@
-package dev.sunnat629.section1
+package section1
 
-import kotlinx.coroutines.flow.asFlow
+
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 
-fun main() = runBlocking {
-    val numbers = (1..10).asFlow()
-    numbers
-        .filter { it % 2 == 0 }
-        .map { it * it }
-        .collect { value ->
-            println("Processed number: $value")
-        }
-}
+import kotlinx.coroutines.flow.flow
 
+fun main() = runBlocking {
+    val stream = flow {
+        for (i in 1..6) {
+            emit(i)
+        }
+    }
+
+    stream
+        .filter { it % 2 == 0 }
+        .map { "Number: $it" }
+        .collect { println(it) }
+}

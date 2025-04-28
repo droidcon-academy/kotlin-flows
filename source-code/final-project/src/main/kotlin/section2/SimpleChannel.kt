@@ -1,9 +1,7 @@
-package dev.sunnat629.section2
+package section2
 
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 fun main(): Unit = runBlocking {
     val channel = Channel<Int>()

@@ -1,9 +1,6 @@
-package dev.sunnat629.section1
+package section1
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 fun main() {
     println("Program starts: ${Thread.currentThread().name}")

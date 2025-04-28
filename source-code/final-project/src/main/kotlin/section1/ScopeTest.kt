@@ -1,4 +1,4 @@
-package dev.sunnat629.section1
+package section1
 
 import kotlinx.coroutines.*
 

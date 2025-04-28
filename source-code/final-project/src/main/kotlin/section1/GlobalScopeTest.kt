@@ -1,9 +1,6 @@
-package dev.sunnat629.section1
+package section1
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 fun main() = runBlocking {
     GlobalScope.launch {
@@ -16,3 +13,4 @@ fun main() = runBlocking {
     println("Exiting main...")
     delay(1000L) // Main thread ends, but GlobalScope coroutines continue
 }
+

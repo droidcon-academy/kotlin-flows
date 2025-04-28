@@ -1,28 +1,31 @@
 package section6
 
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class SimpleFlowTest {
+// Code under test: a simple flow builder function
+fun getNumbers(): Flow<Int> = flow {
+    emit(1)
+    emit(2)
+    emit(3)
+}
+
+// Unit test for the getNumbers() flow
+class FlowTest {
 
     @Test
-    fun testSimpleFlow() = runTest {
-        // Arrange: Create a simple Flow that emits numbers 1 to 3
-        val flow = flow {
-            emit(1)
-            emit(2)
-            emit(3)
-        }
+    fun `getNumbers emits 1, 2, 3 in order`() = runTest {
+        // Arrange: nothing too complex here, we just prepare the flow
+        val numbersFlow = getNumbers()
 
-        // Act: Collect the Flow and store the emitted values
-        val result = mutableListOf<Int>()
-        flow.collect { value ->
-            result.add(value)
-        }
+        // Act: collect the flow's emissions into a list
+        val emittedList = numbersFlow.toList()
 
-        // Assert: Verify that the Flow emitted the correct values
-        assertEquals(listOf(1, 2, 3), result)
+        // Assert: verify the collected emissions match the expected values
+        assertEquals(listOf(1, 2, 3), emittedList)
     }
 }

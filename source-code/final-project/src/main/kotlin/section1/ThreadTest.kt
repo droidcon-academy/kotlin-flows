@@ -1,4 +1,4 @@
-package dev.sunnat629.section1
+package section1
 
 fun main() {
     for (i in 1..10) {

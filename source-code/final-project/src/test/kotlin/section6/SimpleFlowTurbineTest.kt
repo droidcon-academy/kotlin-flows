@@ -1,28 +1,39 @@
 package section6
 
 import app.cash.turbine.test
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+// A simple flow that emits three values and then completes
+fun simpleStringFlow(): Flow<String> = flow {
+    emit("Kotlin")
+    emit("Flow")
+    emit("Turbine")
+    // Flow completes naturally after emitting all values
+}
+
 class SimpleFlowTurbineTest {
-
     @Test
-    fun testSimpleFlow() = runTest {
-        // Arrange: Create a simple Flow that emits numbers 1 to 3
-        val flow = flow {
-            emit(1)
-            emit(2)
-            emit(3)
-        }
+    fun `test simple flow emits expected values`() = runTest {
+        val testFlow = simpleStringFlow()  // Get the flow to test
+        testFlow.test {
+            // 1. Await the first emission from the flow
+            val firstItem = awaitItem()
+            assertEquals("Kotlin", firstItem, "First item should be 'Kotlin'")
 
-        // Act and Assert: Use Turbine to verify the emitted values
-        flow.test {
-            assertEquals(1, awaitItem()) // Verify the first emission
-            assertEquals(2, awaitItem()) // Verify the second emission
-            assertEquals(3, awaitItem()) // Verify the third emission
-            awaitComplete() // Verify that the Flow completes
+            // 2. Await the second emission
+            val secondItem = awaitItem()
+            assertEquals("Flow", secondItem, "Second item should be 'Flow'")
+
+            // 3. Await the third emission
+            val thirdItem = awaitItem()
+            assertEquals("Turbine", thirdItem, "Third item should be 'Turbine'")
+
+            // 4. Await flow completion
+            awaitComplete()
         }
     }
 }

@@ -1,7 +1,6 @@
-package dev.sunnat629.section1
+package section1
 
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 fun main() = runBlocking {
     for (i in 1..10) {
